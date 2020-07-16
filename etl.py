@@ -86,20 +86,6 @@ class SparkifyETL:
 
             self.load_data(record, sparkify_facts)
 
-    def process_fact_table_record(self, record):
-
-        # query to find song ID and artist ID
-        artist_id, song_id = self.dbtm.song_fact_query(record)
-
-        if song_id is None:
-            return
-
-        # add song ID and artist ID to record
-        record['song_id'] = song_id
-        record['artist_id'] = artist_id
-
-        return record
-
     def extract_data(self, filepath):
         """
         Extracts data from all JSON files at a specified path and stores it as a list of records
@@ -141,7 +127,10 @@ class SparkifyETL:
         return all_files
 
     def process_log_data(self, record):
-
+        """
+        :param record: unprocessed record
+        :return: processed record
+        """
         # filter out certain records
         if record['page'] != 'NextSong':
             return
@@ -151,9 +140,11 @@ class SparkifyETL:
 
         return record
 
-
     @staticmethod
     def adding_time_fields(record):
+        """
+        Adds time fields to log data record
+        """
 
         start_time = datetime.fromtimestamp(record['ts']/1000)
 
@@ -169,11 +160,33 @@ class SparkifyETL:
 
     @staticmethod
     def renaming_camel_case_fields(record):
-
+        """
+        Converts some column names in log data records from camel case to snake case
+        :param record: record with some column names in camel case
+        :return: record with column names in snake case
+        """
         for camel_case in ['userId', 'firstName', 'lastName', 'userAgent']:
             snake_case = camel_to_snake_case(camel_case)
             record[snake_case] = record[camel_case]
             record.pop(camel_case)
+
+        return record
+
+    def process_fact_table_record(self, record):
+        """
+        :param record: unprocessed record
+        :return: processed record
+        """
+
+        # query to find song ID and artist ID
+        artist_id, song_id = self.dbtm.song_fact_query(record)
+
+        if song_id is None:
+            return
+
+        # add song ID and artist ID to record
+        record['song_id'] = song_id
+        record['artist_id'] = artist_id
 
         return record
 

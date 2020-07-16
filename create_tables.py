@@ -1,8 +1,8 @@
 from etl import SparkifyETL
 
 """
-Script to create database and create Sparkify star shema tables. 
-drop any existing tables. Any existing tables will be dropped
+Script to create database and create Sparkify star schema tables. 
+Existing tables will be dropped prior to creating new tables.
 """
 
 if __name__ == '__main__':

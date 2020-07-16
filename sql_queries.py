@@ -20,6 +20,9 @@ class SparkifyDBQueries(DatabaseTransactionManager):
     def song_fact_query(self, record):
         """
         Query the song and artist dimension table to identify foreign keys for the sparkify fact table
+        :param record: the record to be added to the fact songplays table
+        :return artist_id: artist ID associated with the record, returns None if it could not be found.
+        :return song_id: song ID associated with record, returns None if it cannot be found.
         """
 
         with session_scope(self.engine) as session:

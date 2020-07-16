@@ -29,7 +29,7 @@ class DatabaseTransactionManager:
     def create_all_tables(self, drop_existing_tables=False):
         """
         Creates all table models.
-        :param drop_existing_tables: if True, drops all tables associate with Base from the database.
+        :param drop_existing_tables: if True, drops all tables associated with Base from the database.
         """
         # drops any existing table in the database
         if drop_existing_tables:
@@ -53,6 +53,9 @@ class DatabaseTransactionManager:
     def filter_record(table, record):
         """
         Remove arguments not present in a table from record
+        :param table: table class to be updated
+        :param record: record to be filtered
+        :return filtered_record: record with only columns present in table class
         """
 
         filtered_record = dict()
