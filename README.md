@@ -13,10 +13,21 @@ Instructions for how to run assumes the following are installed:
 * PostgreSQL ([One of many installation guides](https://www.datacamp.com/community/tutorials/installing-postgresql-windows-macosx))
         
 Prior to running the code the following can be done on the command line:
-* Navigate to empty folder
+* Navigate to folder where you want to store the repository
     ```commandline
     cd ~/path_to_folder/
     ``` 
+  
+* Clone the repository
+    ```commandline
+    git clone git@github.com:paulb17/sparkify_star_schema.git
+    ```
+  
+* Change directoty to the sparkify_star_schema folder
+    ```commandline
+    cd sparkify_star_schema
+    ``` 
+  
 * Create and activate a virtual environment
     ```commandline
      python3 -m venv venv
@@ -26,7 +37,7 @@ Prior to running the code the following can be done on the command line:
     ```commandline
     pip install -r requirements.txt
     ```
-* Ensure that Postgres
+* Ensure that a local PostgresSQL server is started
   
 ## Running the ETL pipeline
 For an initial run, use the following command:
